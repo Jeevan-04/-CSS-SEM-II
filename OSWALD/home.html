@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oswald</title>
+    <link rel="stylesheet" href="oswald.css">
+</head>
+<body>
+
+    <video id="loading-video" autoplay muted loop>
+        <source src="1234.mp4" type="video/mp4">
+    </video>
+
+
+    <div id="content" style="display: none;">
+        <div class="video-container">
+            <div class="topnav">
+                <a class="active" href="#home">Home</a>
+                <a href="./about.html">About</a>
+                <a class="logo-link" href="home.html" target="_blank"><img src="logo.png" class="logo"></a>
+                <a href="watch.html">Watch</a>
+                <a href="/home.html" class="search-icon" id="searchIcon"></a>
+            </div>
+    
+            <video id="myVideo1" height="100%" autoplay class="video">
+                <source src="123.mp4" type="video/mp4">
+            </video>
+            <video id="myVideo2" height="100%" loop muted class="video" style="display: none;">
+                <source src="1234.mp4" type="video/mp4">
+            </video>
+            <h1 style="color: red; text-align: center;">
+                Oswald Octopus
+            </h1>
+        </div>
+        
+    </div>
+
+    <script>
+        const video1 = document.getElementById('myVideo1');
+        const video2 = document.getElementById('myVideo2');
+
+        video1.addEventListener('ended', () => {
+            video1.style.display = 'none';
+            video2.style.display = 'block';
+            video2.play();
+            video2.style.margin = 'auto'; // Center the video horizontally
+        });
+
+        const searchIcon = document.getElementById('searchIcon');
+
+        searchIcon.addEventListener('click', () => {
+            searchIcon.classList.toggle('active');
+        });
+
+        function checkVideoCompletion() {
+            const loadingVideo = document.getElementById('loading-video');
+            if (loadingVideo.currentTime >= loadingVideo.duration) {
+                showContent();
+            } else {
+                setTimeout(checkVideoCompletion, 1000);
+            }
+        }
+        function showContent() {
+            const loadingVideo = document.getElementById('loading-video');
+            loadingVideo.pause();
+            loadingVideo.style.display = 'none';
+            const content = document.getElementById('content');
+            content.style.display = 'block';
+        }
+        checkVideoCompletion();
+    </script>
+
+</body>
+</html>
